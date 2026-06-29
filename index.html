@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulation Tailwinds — Amplio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.26.0/dist/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --bg-secondary: #f7f7f5; --bg-tertiary: #f1efea;
+    --text-primary: #1a1a18; --text-secondary: #5f5e5a; --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12); --border-md: rgba(0,0,0,0.2);
+    --radius-md: 8px; --radius-lg: 12px;
+    --blue-50: #E6F1FB; --blue-600: #185FA5; --blue-800: #0C447C;
+    --purple-50: #EEEDFE; --purple-600: #534AB7;
+    --teal-50: #E1F5EE; --teal-600: #0F6E56;
+    --amber-50: #FAEEDA; --amber-600: #854F0B;
+    --green-50: #EAF3DE; --green-600: #3B6D11;
+    --coral-50: #FAECE7; --coral-600: #993C1D;
+    --red-50: #FCEBEB; --red-600: #A32D2D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a; --bg-secondary: #252523; --bg-tertiary: #2e2e2b;
+      --text-primary: #f0ede6; --text-secondary: #b4b2a9; --text-tertiary: #888780;
+      --border: rgba(255,255,255,0.1); --border-md: rgba(255,255,255,0.2);
+    }
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100vh; padding: 2rem 1rem; }
+  .page-wrap { max-width: 920px; margin: 0 auto; }
+  .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem; }
+  .logo-lock { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--text-primary); display: flex; align-items: center; justify-content: center; color: var(--bg); font-size: 14px; font-weight: 600; }
+  .page-title { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+  .page-sub { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .updated-badge { font-size: 11px; color: var(--text-tertiary); background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
+
+  .summary-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .summary-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; }
+  .summary-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+  .summary-value { font-size: 20px; font-weight: 500; color: var(--text-primary); }
+  .summary-note { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+
+  .reg-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 14px; }
+  .reg-card.active { border-left: 3px solid var(--red-600); }
+  .reg-card.imminent { border-left: 3px solid var(--amber-600); }
+  .reg-card.upcoming { border-left: 3px solid var(--blue-600); }
+
+  .reg-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .reg-name-block { display: flex; align-items: flex-start; gap: 10px; }
+  .reg-icon { width: 38px; height: 38px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .reg-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+  .reg-full-name { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+  .status-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .status-active { background: var(--red-50); color: var(--red-600); }
+  .status-imminent { background: var(--amber-50); color: var(--amber-600); }
+  .status-upcoming { background: var(--blue-50); color: var(--blue-600); }
+
+  .reg-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 0.5px solid var(--border); }
+
+  .reg-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+  .meta-box { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 9px 11px; }
+  .meta-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 3px; }
+  .meta-value { font-size: 12px; font-weight: 500; color: var(--text-primary); line-height: 1.4; }
+
+  .reg-bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .reg-section-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 5px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag { font-size: 11px; border-radius: 20px; padding: 2px 9px; border: 0.5px solid var(--border-md); color: var(--text-secondary); }
+  .tag.icp { border-color: var(--blue-600); color: var(--blue-600); }
+  .penalty-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .solution-list { display: flex; flex-wrap: wrap; gap: 4px; }
+  .solution-pill { font-size: 11px; background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: 20px; padding: 2px 9px; color: var(--text-secondary); text-decoration: none; }
+  .solution-pill:hover { border-color: var(--border-md); }
+  .solution-pill.amplio { border-color: var(--green-600); color: var(--green-600); font-weight: 500; }
+
+  .page-footer { margin-top: 2rem; padding-top: 1rem; border-top: 0.5px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .footer-note { font-size: 11px; color: var(--text-tertiary); line-height: 1.7; max-width: 560px; }
+  .footer-brand { font-size: 12px; color: var(--text-tertiary); font-weight: 500; white-space: nowrap; }
+
+  .legend { display: flex; gap: 16px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  @media (max-width: 640px) {
+    .summary-strip { grid-template-columns: repeat(2,1fr); }
+    .reg-meta { grid-template-columns: repeat(2,1fr); }
+    .reg-bottom { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="logo-lock">
+      <div class="logo-mark">A</div>
+      <div>
+        <div class="page-title">Regulation tailwinds</div>
+        <div class="page-sub">Key regulations driving demand for Amplio's clients · 5 regulations · updated Jun 2026</div>
+      </div>
+    </div>
+    <div class="updated-badge"><i class="ti ti-refresh" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>Updated Jun 2026</div>
+  </div>
+
+  <div class="summary-strip">
+    <div class="summary-card">
+      <div class="summary-label">Regulations tracked</div>
+      <div class="summary-value">5</div>
+      <div class="summary-note">EU + US</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Already in force</div>
+      <div class="summary-value">2</div>
+      <div class="summary-note">CBAM · CSRD wave 1</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Effective in 2026</div>
+      <div class="summary-value">3</div>
+      <div class="summary-note">ESPR · Right to Repair · CBAM definitive</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Est. companies impacted</div>
+      <div class="summary-value">50K+</div>
+      <div class="summary-note">Across all 5</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red-600)"></div>Active now</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--amber-600)"></div>Effective 2026</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue-600)"></div>Effective 2027+</div>
+  </div>
+
+  <!-- ESPR -->
+  <div class="reg-card imminent">
+    <div class="reg-top">
+      <div class="reg-name-block">
+        <div class="reg-icon" style="background:var(--amber-50);color:var(--amber-600)"><i class="ti ti-recycle" aria-hidden="true"></i></div>
+        <div>
+          <div class="reg-name">ESPR + Digital Product Passport</div>
+          <div class="reg-full-name">Ecodesign for Sustainable Products Regulation · EU 2024/1781</div>
+        </div>
+      </div>
+      <span class="status-badge status-imminent"><i class="ti ti-clock" style="font-size:10px;vertical-align:-1px;margin-right:3px"></i>Effective Jul 2026</span>
+    </div>
+
+    <div class="reg-desc">Replaces the 2009 Ecodesign Directive and extends sustainability requirements to nearly all physical products sold in the EU. Mandates Digital Product Passports (DPPs) that carry lifecycle, material, repairability, and recyclability data. Bans destruction of unsold textiles and footwear from July 2026. Product-specific delegated acts roll out 2026–2030 covering batteries, textiles, electronics, furniture, steel, and aluminium.</div>
+
+    <div class="reg-meta">
+      <div class="meta-box">
+        <div class="meta-label">Regulatory body</div>
+        <div class="meta-value">European Commission</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Effective date</div>
+        <div class="meta-value">19 Jul 2026 (first obligations) · DPP registry live</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Est. companies in scope</div>
+        <div class="meta-value">All EU market manufacturers, importers & dealers — tens of thousands</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Markets in scope</div>
+        <div class="meta-value">All 27 EU member states · global exporters to EU</div>
+      </div>
+    </div>
+
+    <div class="reg-bottom">
+      <div>
+        <div class="reg-section-label">Target industries</div>
+        <div class="tag-row">
+          <span class="tag icp">Automotive / EV</span>
+          <span class="tag icp">Electronics</span>
+          <span class="tag icp">Industrial mfr</span>
+          <span class="tag">Textiles</span>
+          <span class="tag icp">Metals / steel</span>
+          <span class="tag">Furniture</span>
+        </div>
+      </div>
+      <div>
+        <div class="reg-section-label">Non-compliance risk</div>
+        <div class="penalty-text">Products without a DPP cannot be placed on the EU market. Market surveillance authorities can withdraw or ban non-compliant goods. Fines set nationally — expect proportionate + dissuasive penalties. Reputational risk from public enforcement actions.</div>
+      </div>
+      <div>
+        <div class="reg-section-label">Solutions</div>
+        <div class="solution-list">
+          <span class="solution-pill amplio">Amplio (end-of-life data)</span>
+          <a href="https://apparelsolutions.averydennison.com/en/solutions/consumer-engagement-solutions/digital-product-passport" target="_blank" rel="noopener" class="solution-pill">Avery Dennison</a>
+          <a href="https://kezzler.com/digital-product-passport/" target="_blank" rel="noopener" class="solution-pill">Kezzler</a>
+          <a href="https://www.digimarc.com/" target="_blank" rel="noopener" class="solution-pill">Digimarc</a>
+          <a href="https://www.minespider.com/product-passports" target="_blank" rel="noopener" class="solution-pill">Minespider</a>
+          <a href="https://www.circularise.com/" target="_blank" rel="noopener" class="solution-pill">Circularise</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EU Battery Regulation -->
+  <div class="reg-card upcoming">
+    <div class="reg-top">
+      <div class="reg-name-block">
+        <div class="reg-icon" style="background:var(--green-50);color:var(--green-600)"><i class="ti ti-battery-charging" aria-hidden="true"></i></div>
+        <div>
+          <div class="reg-name">EU Battery Regulation + Battery Passport</div>
+          <div class="reg-full-name">Regulation EU 2023/1542 on batteries and waste batteries</div>
+        </div>
+      </div>
+      <span class="status-badge status-upcoming"><i class="ti ti-clock" style="font-size:10px;vertical-align:-1px;margin-right:3px"></i>Passport mandatory Feb 2027</span>
+    </div>
+
+    <div class="reg-desc">Establishes lifecycle requirements for all batteries placed on the EU market — covering carbon footprint, recycled content, supply chain due diligence, and end-of-life collection and recycling targets. From Feb 2027, EV batteries, industrial batteries above 2 kWh, and LMT batteries must carry a digital battery passport accessible via QR code. Carbon footprint declarations required from Feb 2025 for EV batteries.</div>
+
+    <div class="reg-meta">
+      <div class="meta-box">
+        <div class="meta-label">Regulatory body</div>
+        <div class="meta-value">European Commission + member states</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Effective date</div>
+        <div class="meta-value">Carbon footprint declaration: Feb 2025 · Battery passport: Feb 2027</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Est. companies in scope</div>
+        <div class="meta-value">All battery manufacturers, EV OEMs, importers with turnover &gt;€40M</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Markets in scope</div>
+        <div class="meta-value">All 27 EU member states · global EV & battery exporters to EU</div>
+      </div>
+    </div>
+
+    <div class="reg-bottom">
+      <div>
+        <div class="reg-section-label">Target industries</div>
+        <div class="tag-row">
+          <span class="tag icp">Automotive / EV</span>
+          <span class="tag icp">Battery manufacturers</span>
+          <span class="tag icp">Mining & metals</span>
+          <span class="tag icp">Industrial machinery</span>
+          <span class="tag">Electronics</span>
+        </div>
+      </div>
+      <div>
+        <div class="reg-section-label">Non-compliance risk</div>
+        <div class="penalty-text">Batteries without a passport cannot legally be placed on the EU market or put into service from Feb 2027. Products stopped at the border, forced market withdrawal, and national fines. Due diligence violations carry additional legal liability.</div>
+      </div>
+      <div>
+        <div class="reg-section-label">Solutions</div>
+        <div class="solution-list">
+          <span class="solution-pill amplio">Amplio (battery end-of-life)</span>
+          <a href="https://www.minespider.com/" target="_blank" rel="noopener" class="solution-pill">Minespider</a>
+          <a href="https://www.circulor.com/" target="_blank" rel="noopener" class="solution-pill">Circulor</a>
+          <a href="https://www.spherity.com/" target="_blank" rel="noopener" class="solution-pill">Spherity</a>
+          <a href="https://www.circularise.com/" target="_blank" rel="noopener" class="solution-pill">Circularise</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSRD -->
+  <div class="reg-card active">
+    <div class="reg-top">
+      <div class="reg-name-block">
+        <div class="reg-icon" style="background:var(--purple-50);color:var(--purple-600)"><i class="ti ti-file-description" aria-hidden="true"></i></div>
+        <div>
+          <div class="reg-name">CSRD</div>
+          <div class="reg-full-name">Corporate Sustainability Reporting Directive · EU 2022/2464</div>
+        </div>
+      </div>
+      <span class="status-badge status-active"><i class="ti ti-circle-check" style="font-size:10px;vertical-align:-1px;margin-right:3px"></i>Active — wave 1 reporting now</span>
+    </div>
+
+    <div class="reg-desc">Requires large EU companies to report detailed sustainability information under the European Sustainability Reporting Standards (ESRS), covering climate, biodiversity, social, and governance topics. Replaces the NFRD. Wave 1 (largest companies, 500+ employees) are already reporting for FY2024. Scope narrowed by EU Omnibus in Feb 2026 — now applies to companies with 1,000+ employees and €450M+ revenue for FY2027 onwards.</div>
+
+    <div class="reg-meta">
+      <div class="meta-box">
+        <div class="meta-label">Regulatory body</div>
+        <div class="meta-value">European Commission · EFRAG (standards)</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Effective date</div>
+        <div class="meta-value">Wave 1: FY2024 reports (2025) · Wave 2 delayed to FY2027</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Est. companies in scope</div>
+        <div class="meta-value">~50,000 EU companies (revised down from ~50K after Omnibus)</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Markets in scope</div>
+        <div class="meta-value">EU + non-EU companies with significant EU revenue (&gt;€450M)</div>
+      </div>
+    </div>
+
+    <div class="reg-bottom">
+      <div>
+        <div class="reg-section-label">Target industries</div>
+        <div class="tag-row">
+          <span class="tag icp">All large manufacturers</span>
+          <span class="tag icp">Utilities</span>
+          <span class="tag icp">Mining & metals</span>
+          <span class="tag">Financial services</span>
+          <span class="tag icp">Oil & gas</span>
+        </div>
+      </div>
+      <div>
+        <div class="reg-section-label">Non-compliance risk</div>
+        <div class="penalty-text">Member state penalties vary — typically fines + mandatory corrective disclosure. Erodes investor confidence and disrupts access to capital markets. Large companies face audit requirements; false reporting risks criminal liability in some jurisdictions.</div>
+      </div>
+      <div>
+        <div class="reg-section-label">Solutions</div>
+        <div class="solution-list">
+          <span class="solution-pill amplio">Amplio (circular disposal data)</span>
+          <a href="https://watershed.com/" target="_blank" rel="noopener" class="solution-pill">Watershed</a>
+          <a href="https://plana.earth/" target="_blank" rel="noopener" class="solution-pill">Plan A</a>
+          <a href="https://normative.io/" target="_blank" rel="noopener" class="solution-pill">Normative</a>
+          <a href="https://www.persefoni.com/" target="_blank" rel="noopener" class="solution-pill">Persefoni</a>
+          <a href="https://www.sweep.net/" target="_blank" rel="noopener" class="solution-pill">Sweep</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CBAM -->
+  <div class="reg-card imminent">
+    <div class="reg-top">
+      <div class="reg-name-block">
+        <div class="reg-icon" style="background:var(--teal-50);color:var(--teal-600)"><i class="ti ti-ship" aria-hidden="true"></i></div>
+        <div>
+          <div class="reg-name">CBAM</div>
+          <div class="reg-full-name">Carbon Border Adjustment Mechanism · EU Regulation 2023/956</div>
+        </div>
+      </div>
+      <span class="status-badge status-imminent"><i class="ti ti-clock" style="font-size:10px;vertical-align:-1px;margin-right:3px"></i>Definitive phase Jan 2026</span>
+    </div>
+
+    <div class="reg-desc">Puts a carbon price on imports of carbon-intensive goods into the EU, equivalent to what EU producers pay under the Emissions Trading System (ETS). Prevents carbon leakage — where EU manufacturers move production abroad to avoid carbon costs. Transitional reporting phase ran Oct 2023–Dec 2025. Financial obligations (certificate purchases) begin Jan 2026. Scope expanding to more sectors by 2030.</div>
+
+    <div class="reg-meta">
+      <div class="meta-box">
+        <div class="meta-label">Regulatory body</div>
+        <div class="meta-value">European Commission · EU Customs</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Effective date</div>
+        <div class="meta-value">Transitional: Oct 2023 · Financial obligations: Jan 2026</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Est. companies in scope</div>
+        <div class="meta-value">All EU importers of covered goods above 50-tonne threshold</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Markets in scope</div>
+        <div class="meta-value">EU importers · global exporters of steel, cement, aluminium, fertilizer, hydrogen, electricity</div>
+      </div>
+    </div>
+
+    <div class="reg-bottom">
+      <div>
+        <div class="reg-section-label">Target industries</div>
+        <div class="tag-row">
+          <span class="tag icp">Steel & metals</span>
+          <span class="tag icp">Aluminium</span>
+          <span class="tag icp">Chemicals / fertilizer</span>
+          <span class="tag icp">Industrial machinery</span>
+          <span class="tag">Cement</span>
+          <span class="tag">Hydrogen</span>
+        </div>
+      </div>
+      <div>
+        <div class="reg-section-label">Non-compliance risk</div>
+        <div class="penalty-text">Failure to surrender CBAM certificates: penalty of €100 per tonne of unreported CO2 equivalent, plus mandatory corrective filing. Repeat violations risk import suspension. Inaccurate reporting during transitional phase also carries fines.</div>
+      </div>
+      <div>
+        <div class="reg-section-label">Solutions</div>
+        <div class="solution-list">
+          <span class="solution-pill amplio">Amplio (carbon-efficient disposal)</span>
+          <a href="https://www.carbonchain.com/" target="_blank" rel="noopener" class="solution-pill">CarbonChain</a>
+          <a href="https://www.sinai.com/" target="_blank" rel="noopener" class="solution-pill">SINAI Technologies</a>
+          <a href="https://normative.io/" target="_blank" rel="noopener" class="solution-pill">Normative</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right to Repair -->
+  <div class="reg-card imminent">
+    <div class="reg-top">
+      <div class="reg-name-block">
+        <div class="reg-icon" style="background:var(--blue-50);color:var(--blue-600)"><i class="ti ti-tool" aria-hidden="true"></i></div>
+        <div>
+          <div class="reg-name">EU Right to Repair Directive</div>
+          <div class="reg-full-name">Directive EU 2024/1799 · Common rules promoting repair of goods</div>
+        </div>
+      </div>
+      <span class="status-badge status-imminent"><i class="ti ti-clock" style="font-size:10px;vertical-align:-1px;margin-right:3px"></i>Effective Jul 2026</span>
+    </div>
+
+    <div class="reg-desc">Requires manufacturers of in-scope products to offer affordable, timely repair services for up to 10 years after last sale. Consumers gain the right to choose independent repair over replacement. Manufacturers must provide spare parts and repair information to independent repairers at reasonable prices. Scope currently covers household appliances, electronics, and displays — expanding to furniture and textiles. Drives longer product lifecycles and creates secondary market opportunities.</div>
+
+    <div class="reg-meta">
+      <div class="meta-box">
+        <div class="meta-label">Regulatory body</div>
+        <div class="meta-value">European Commission · national consumer authorities</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Effective date</div>
+        <div class="meta-value">31 Jul 2026 (member state transposition deadline)</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Est. companies in scope</div>
+        <div class="meta-value">All EU manufacturers & importers of in-scope product categories</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Markets in scope</div>
+        <div class="meta-value">All 27 EU member states · appliances, electronics, displays, phones, tablets</div>
+      </div>
+    </div>
+
+    <div class="reg-bottom">
+      <div>
+        <div class="reg-section-label">Target industries</div>
+        <div class="tag-row">
+          <span class="tag icp">Electronics mfr</span>
+          <span class="tag icp">Industrial equipment</span>
+          <span class="tag">Consumer appliances</span>
+          <span class="tag">Telecom devices</span>
+          <span class="tag">Displays</span>
+        </div>
+      </div>
+      <div>
+        <div class="reg-section-label">Non-compliance risk</div>
+        <div class="penalty-text">Member state fines up to €3,750 per violation + potential criminal liability in some jurisdictions. Manufacturers refusing to supply spare parts face consumer protection enforcement. Reputational damage in EU markets where circular economy is a purchasing factor.</div>
+      </div>
+      <div>
+        <div class="reg-section-label">Solutions</div>
+        <div class="solution-list">
+          <span class="solution-pill amplio">Amplio (parts sourcing + recovery)</span>
+          <a href="https://kezzler.com/" target="_blank" rel="noopener" class="solution-pill">Kezzler (part traceability)</a>
+          <a href="https://www.digimarc.com/" target="_blank" rel="noopener" class="solution-pill">Digimarc</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-note">Regulatory data sourced from EUR-Lex, European Commission, SEC.gov, and legal analysis firms (Norton Rose, Wilson Sonsini, KPMG). Effective dates and scope reflect latest published guidance as of Jun 2026. Regulations are subject to delegated acts and national implementation variance.</div>
+    <div class="footer-brand">Amplio · Regulatory Intel</div>
+  </div>
+
+</div>
+</body>
+</html>
